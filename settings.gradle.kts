@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Udemy BizCard"
-include(":app")
+rootProject.name = "Portfolio"
+include(":BizCard")
  
