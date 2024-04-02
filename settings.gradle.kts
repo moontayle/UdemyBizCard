@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Portfolio"
 include(":BizCard")
- 
+include(":IntroToCompose")
