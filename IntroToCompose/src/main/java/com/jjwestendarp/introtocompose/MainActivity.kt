@@ -47,6 +47,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp() {
+    val moneyCounter = remember {
+        mutableIntStateOf(0)
+    }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.primary
@@ -56,35 +59,31 @@ fun MyApp() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "$100", style = TextStyle(
+                text = "$${moneyCounter.intValue}", style = TextStyle(
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
             Spacer(modifier = Modifier.height(30.dp))
-            CreateCircle()
+            CreateCircle(moneyCounter = moneyCounter.intValue) { newValue ->
+                moneyCounter.intValue = newValue
+            }
         }
     }
 }
 
 @Composable
-fun CreateCircle() {
-    var moneyCounter by remember {
-        mutableIntStateOf(0)
-    }
+fun CreateCircle(moneyCounter: Int = 0, updateMoneyCounter: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .padding(3.dp)
             .size(105.dp)
-            .clickable {
-                moneyCounter += 1
-                Log.d(TAG, "CreateCircle: $moneyCounter")
-            },
+            .clickable { updateMoneyCounter(moneyCounter + 1) },
         shape = CircleShape,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-            Text(text = "Tap $moneyCounter", modifier = Modifier)
+            Text(text = "Tap", modifier = Modifier)
         }
     }
 }
